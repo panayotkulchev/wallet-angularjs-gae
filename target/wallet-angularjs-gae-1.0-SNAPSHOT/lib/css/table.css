@@ -1,0 +1,19 @@
+#id {
+    width: 10%;
+}
+
+#date {
+    width: 15%;
+}
+
+#amount {
+    width: 20%;
+}
+
+#type {
+    width: 20%;
+}
+
+#description {
+    width: 35%;
+}

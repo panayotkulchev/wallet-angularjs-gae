@@ -1,0 +1,98 @@
+<style>
+    .ng-leave {
+        transition: 0s;
+    }
+</style>
+
+<div style="padding: 1px 1px"><h5>You are here: <b>/home</b></h5></div>
+
+<div ng-if="hasErrorMessage" class="alert alert-danger" role="alert" style="margin-bottom: 0px">{{errorMessage}}</div>
+
+<div class="row">
+    <div class="col-md-6" style="padding: 20px 20px">
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3>Add new expenses:</h3>
+            </div>
+            <div class="panel-body">
+
+                <select id="select" class="input-large form-control">
+                    <option value="0">-Select Expense type-</option>
+                    <option value="Books">Books</option>
+                    <option value="Bills">Bills</option>
+                    <option value="CP">Computer parts</option>
+                    <option value="Food">Food</option>
+                    <option value="Fuel">Fuel</option>
+                    <option value="Vacation">Vacation</option>
+                </select><br/>
+
+                <input id="expenseAmount" class="form-control" type="text" ng-model="amount"
+                       onkeypress='validate(event)' placeholder="Enter amount"/><br/>
+
+                <input type="text" id="expenseDate" ng-model="expenseDate" class="datepicker form-control "
+                       readonly/><br/>
+
+                <textarea class="form-control" ng-model="description" rows="4" style="resize: none"
+                          placeholder="Short description"></textarea>
+
+                <a href="#/" class="btn btn-primary form-control" ng-click="add()" style="margin-top: 25px">Add now</a>
+
+
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6" style="padding: 20px 10px">
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Today:</h3>
+            </div>
+            <div class="panel-body">
+                Total: <b>300.00 BGN </b> in 12 transactions
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Yesterday:</h3>
+            </div>
+            <div class="panel-body">
+                Total: <b>560.00 BGN </b> in 18 transactions
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Last week:</h3>
+            </div>
+            <div class="panel-body">
+                Total: <b>4568.00 BGN </b> in 76 transactions
+            </div>
+        </div>
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Last month:</h3>
+            </div>
+            <div class="panel-body">
+                Total: <b>28 525.00 BGN </b> in 403 transactions
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+

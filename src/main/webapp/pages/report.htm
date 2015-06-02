@@ -1,0 +1,41 @@
+<h5>You are here: <b>/report</b></h5>
+<h3 style="color: #5e5e5e; text-align: center">EXPENCES REPORT</h3>
+
+<style>
+    button {
+        margin-right: 30px;
+    }
+
+</style>
+
+
+<div class="input-group" style="margin: 10px auto">
+    <span class="input-group-addon"><span class="glyphicon glyphicon-zoom-in"></span></span>
+    <input class="form-control" type="text" ng-model="searchText" placeholder="Search for expenses"/>
+</div>
+
+<table class="table table-bordered table-condensed">
+    <thead>
+    <tr>
+        <th>#</th>
+        <th>Date</th>
+        <th>Type</th>
+        <th>Amount</th>
+        <th>Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr class="" ng-repeat="datalist in datalists | limitTo: paginationLimit() | filter:searchText" >
+        <th id="id" scope="row">{{$index}}</th>
+        <td id="date"><a href="#">{{datalist.date}}</a></td>
+        <td id="type">{{ datalist.type }}</td>
+        <td id="amount"><b>{{ datalist.amount }}.00</b> BGN</td>
+        <td id="description">{{ datalist.description }}</td>
+    </tr>
+    </tbody>
+</table>
+
+<div class="input-group" style="margin: 10px 10px">
+    <button class="btn btn-primary" ng-click="showMoreItems()">Show more</button>
+    <button class="btn btn-success" ng-click="showAllItems()">Show all</button>
+</div>
