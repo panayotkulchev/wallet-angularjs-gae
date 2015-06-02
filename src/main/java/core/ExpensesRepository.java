@@ -18,4 +18,6 @@ public interface ExpensesRepository {
 
   void delete (Long id);
 
+  void deleteAll ();
+
 }

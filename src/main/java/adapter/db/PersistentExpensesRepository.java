@@ -23,7 +23,6 @@ public class PersistentExpensesRepository implements ExpensesRepository {
   public PersistentExpensesRepository(ObjectDatastore datastore) {
     this.datastore = datastore;
     initExpensesCounterIfDoNotExist();
-//    addSampleData();
   }
 
   @Override
@@ -48,20 +47,20 @@ public class PersistentExpensesRepository implements ExpensesRepository {
 
   @Override
   public void delete(Long id) {
+    Expense expense = datastore.load(Expense.class, id);
+    datastore.delete(expense);
+  }
 
+  @Override
+  public void deleteAll() {
+    System.out.println("into delAll");
+    datastore.deleteAll(Expense.class);
   }
 
   private void initExpensesCounterIfDoNotExist() {
     if (datastore.load(Counter.class, "expensesCounter") == null) {
       Counter counter = new Counter("expensesCounter", 0l);
       datastore.store(counter);
-    }
-  }
-
-  private void addSampleData() {
-    for (int i = 0; i < 6; i++) {
-      Expense expense = new Expense(Long.parseLong(String.valueOf(i)), "Fuel", "50", "22-10-2015", "Some description");
-      add(expense);
     }
   }
 }

@@ -2,123 +2,162 @@ var myApp = angular.module('walletApp', ['ngRoute', 'ngAnimate']);
 
 //ROUTES
 myApp.config(function ($routeProvider) {
-    $routeProvider
-        .when('/', {
+  $routeProvider
+          .when('/', {
             templateUrl: 'pages/home.htm',
             controller: 'homeController'
-        })
-        .when('/report', {
+          })
+          .when('/report', {
             templateUrl: 'pages/report.htm',
             controller: 'reportController'
-        })
+          })
 });
 
 //CONTROLLERS
 myApp.controller('homeController', function ($scope, $http) {
 
-    console.log('homeController');
+  resetForm();
+  setUpDatePicker();
+  monitorAmountForEnteringProperValues();
 
-    $scope.hasErrorMessage = false;
-    $scope.errorMessage = '';
 
-    //GET TODAY DATE
+  // EXTRACT FORM DATA AND SEND IT TO THE SERVER TO BE SAVED
+  $scope.add = function () {
+    if (chosenTypeIsValid() && amountIsValid()) {
+      $http.post('rest/put', {
+        'type': $scope.selectedType,
+        'amount': $scope.amount,
+        'date': $scope.expenseDate,
+        'description': $scope.description,
+        'id': ''
+      }).success(function (result) {
+        $.bootstrapGrowl("Successful adding Expense of " + $scope.amount + ' BGN', {
+          type: 'success',
+          width: 'auto',
+          align: 'left'
+        });
+        resetForm();
+      }).error(function (result) {
+        $.bootstrapGrowl("Error adding of expense of " + $scope.amount + ' BGN', {type: 'danger'});
+      });
+    }
+  };
+
+  //INIT TYPES
+  $scope.expenseTypes = ["Books", "Bills", "Car", "Computer", "Food", "Fuel"];
+  //END INIT TYPES
+
+  //SETUP DATEPICKER
+  function setUpDatePicker() {
+    $('.datepicker').datepicker({autoclose: true, format: 'dd-MM-yyyy', orientation: 'top'});
+  }
+
+  //END SETUP DATEPICKER
+  //RESET FORM VALUES
+  function resetForm() {
     $scope.amount = '';
     $scope.description = '';
+    $scope.selectedType = '-Select Expense type-';
     $scope.expenseDate = getCurrentDate2();
+    $scope.hasErrorMessage = false;
+    $scope.errorMessage = '';
+  }
 
+  //END RESET FORM VALUES
+  function chosenTypeIsValid() {
+    if ($scope.selectedType == "-Select Expense type-" || $scope.selectedType == null) {
+      $scope.errorMessage = "Please select the type!";
+      $scope.hasErrorMessage = true;
+      return false;
+    }
+    return true;
+  }
 
+  function amountIsValid() {
+    if ($scope.amount == '' || $scope.amount.slice(-1) == '.' || $scope.amount == 0) {
+      $scope.errorMessage = "Please enter proper amount!";
+      $scope.hasErrorMessage = true;
+      return false;
+    }
+    if ($scope.amount.substr($scope.amount.length - 2, 1) == '.') {
+      $scope.amount += "0";
+    }
+    if ($scope.amount.indexOf('.') == -1) {
+      $scope.amount += ".00";
+    }
+    return true;
+  }
+
+  //MONITOR THE AMOUNT INPUT
+  function monitorAmountForEnteringProperValues() {
     $scope.$watch('amount', function () {
-
-        var allButLast = $scope.amount.slice(0, -1);
-        var lastSymbol = $scope.amount.slice(-1);
-
-        if (allButLast.match(/[0-9]+\.[0-9]{2}/)) {
-            $scope.amount = allButLast;
-        }
-
-        if (lastSymbol == '.' && $scope.amount.length == 1) {
-            $scope.amount = '';
-        }
-
-        if (lastSymbol == '.' && allButLast.indexOf('.') != -1) {
-            $scope.amount = allButLast;
-        }
-
+      var allButLast = $scope.amount.slice(0, -1);
+      var lastSymbol = $scope.amount.slice(-1);
+      if (allButLast.match(/[0-9]+\.[0-9]{2}/)) {
+        $scope.amount = allButLast;
+      }
+      if (lastSymbol == '.' && $scope.amount.length == 1) {
+        $scope.amount = '';
+      }
+      if (lastSymbol == '.' && allButLast.indexOf('.') != -1) {
+        $scope.amount = allButLast;
+      }
     });
-
-
-
-    $('.datepicker').datepicker({autoclose: true, format: 'dd-MM-yyyy', orientation: 'top'});
-
-    // EXTRACT FORM DATA AND SEND IT TO THE SERVER TO BE SAVED
-    $scope.add = function () {
-
-        var chosenDate = document.getElementById('expenseDate').value;
-        var e = document.getElementById("select");
-        var type = e.options[e.selectedIndex].text;
-
-        if (document.getElementById("select").value == 0) {
-            $scope.errorMessage = "Please select the type!"
-            $scope.hasErrorMessage = true;
-            return;
-        }
-
-        if ($scope.amount.slice(-1) == '.' || $scope.amount == '') {
-            $scope.errorMessage = "Please enter proper amount!";
-            $scope.hasErrorMessage = true;
-            return;
-        }
-
-        $http.post('rest/put', {
-            'type': type, 'amount': $scope.amount, 'date': chosenDate, 'description': $scope.description, 'id': ''
-        }).success(function (result) {
-            $.bootstrapGrowl("Successful adding Expense of " + $scope.amount + '.00 BGN', {
-                type: 'success',
-                width: 'auto',
-                align: 'left'
-            });
-            //resetExpenseForm();
-            $scope.amount = '';
-            $scope.description = '';
-            document.getElementById("select").value = "0";
-            document.getElementById('expenseDate').value = getCurrentDate();
-            $scope.hasErrorMessage = false;
-            $scope.errorMessage = '';
-
-        }).error(function (result) {
-            $.bootstrapGrowl("Error adding of expense of " + $scope.amount + '.00 BGN', {type: 'danger'});
-        });
-    };
-
+  }
+  //END MONITOR THE AMOUNT INPUT
 
 });
 
 myApp.controller('reportController', function ($scope, $http) {
-    console.log('reportcontroller');
+  console.log('reportcontroller');
 
-    $http.get('rest/get').success(function (result) {
-        $scope.datalists = result;
+  //GET ALL EXPENSES
+  $http.get('rest/get').success(function (result) {
+    $scope.datalists = result;
+    console.log($scope.datalists.length);
+  });
+  //END GET ALL EXPENSES
+  // DELETE EXPENSE
+  $scope.deleteExpense = function (id) {
+    $http.delete('rest/del/' + id).success(function (result) {
+      for (var i = 0; i < $scope.datalists.length; i++) {
+        if ($scope.datalists[i].id == id) {
+          $scope.datalists.splice(i, 1);
+          break;
+        }
+      }
+
     });
+  };
+  // END DELETE EXPENSE
+  //DELETE ALL EXPENSES
+  $scope.deleteAllExpenses = function () {
+    $http.delete('rest/del/all').success(function (result) {
+      $scope.datalists = [];
+    });
+  };
+  //END DEL ALL EXPENSES
+  //PAGINATION
+  var pagesShown = 1;
 
-    var pagesShown = 1;
+  var pageSize = 3;
 
-    var pageSize = 3;
+  $scope.paginationLimit = function (data) {
+    return pageSize * pagesShown;
+  };
 
-    $scope.paginationLimit = function (data) {
-        return pageSize * pagesShown;
-    };
+  $scope.hasMoreItemsToShow = function () {
+    return pagesShown < ($scope.datalists.length / pageSize);
+  };
 
-    $scope.hasMoreItemsToShow = function () {
-        return pagesShown < ($scope.datalists.length / pageSize);
-    };
+  $scope.showMoreItems = function () {
+    pagesShown = pagesShown + 1;
+  };
 
-    $scope.showMoreItems = function () {
-        pagesShown = pagesShown + 1;
-    };
-
-    $scope.showAllItems = function () {
-        pagesShown = $scope.datalists.length / pageSize;
-    };
+  $scope.showAllItems = function () {
+    pagesShown = $scope.datalists.length / pageSize;
+  };
+  //END PAGINATION
 
 });
 

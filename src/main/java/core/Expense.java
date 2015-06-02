@@ -14,13 +14,13 @@ public class Expense {
   public Long id;
   public String type;
   public String amount;
-  public String date;
+  public Long date;
   public String description;
 
   public Expense() {
   }
 
-  public Expense(Long id, String type, String amount, String date, String description) {
+  public Expense(Long id, String type, String amount, Long date, String description) {
 
     this.id = id;
     this.type = type;

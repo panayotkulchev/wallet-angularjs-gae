@@ -1,14 +1,14 @@
 <h5>You are here: <b>/report</b></h5>
 <h3 style="color: #5e5e5e; text-align: center">EXPENCES REPORT</h3>
 
+<style>button {
+    margin-right: 30px;
+}</style>
 <style>
-    button {
-        margin-right: 30px;
+    .ng-leave {
+        transition: 0s;
     }
-
 </style>
-
-
 <div class="input-group" style="margin: 10px auto">
     <span class="input-group-addon"><span class="glyphicon glyphicon-zoom-in"></span></span>
     <input class="form-control" type="text" ng-model="searchText" placeholder="Search for expenses"/>
@@ -22,15 +22,26 @@
         <th>Type</th>
         <th>Amount</th>
         <th>Description</th>
+        <th>Edit/Del</th>
     </tr>
     </thead>
     <tbody>
-    <tr class="" ng-repeat="datalist in datalists | limitTo: paginationLimit() | filter:searchText" >
+    <tr class="" ng-repeat="datalist in datalists | limitTo: paginationLimit() | filter:searchText">
         <th id="id" scope="row">{{$index}}</th>
         <td id="date"><a href="#">{{datalist.date}}</a></td>
         <td id="type">{{ datalist.type }}</td>
-        <td id="amount"><b>{{ datalist.amount }}.00</b> BGN</td>
+        <td id="amount"><b>{{ datalist.amount }}</b> BGN</td>
         <td id="description">{{ datalist.description }}</td>
+        <td>
+            <div class="row" align="center">
+                <button type="button" class="btn btn-info btn-xs" ng-click="editExpense(datalist.id)"
+                        style="margin: 1px 1px"><span
+                        class="glyphicon glyphicon-pencil"></span></button>
+                <button type="button" class="btn btn-danger btn-xs" ng-click="deleteExpense(datalist.id)"
+                        style="margin: 1px 1px"><span
+                        class="glyphicon glyphicon-trash"></span></button>
+            </div>
+        </td>
     </tr>
     </tbody>
 </table>
@@ -38,4 +49,5 @@
 <div class="input-group" style="margin: 10px 10px">
     <button class="btn btn-primary" ng-click="showMoreItems()">Show more</button>
     <button class="btn btn-success" ng-click="showAllItems()">Show all</button>
+    <button class="btn btn-danger" ng-click="deleteAllExpenses()">Delete all</button>
 </div>

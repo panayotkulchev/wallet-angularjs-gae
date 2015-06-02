@@ -17,14 +17,9 @@
             </div>
             <div class="panel-body">
 
-                <select id="select" class="input-large form-control">
-                    <option value="0">-Select Expense type-</option>
-                    <option value="Books">Books</option>
-                    <option value="Bills">Bills</option>
-                    <option value="CP">Computer parts</option>
-                    <option value="Food">Food</option>
-                    <option value="Fuel">Fuel</option>
-                    <option value="Vacation">Vacation</option>
+                <select ng-model="selectedType"
+                        data-ng-options="type for type in expenseTypes" class="input-large form-control">
+                    <option value="">-Select Expense type-</option>
                 </select><br/>
 
                 <input id="expenseAmount" class="form-control" type="text" ng-model="amount"
@@ -36,8 +31,7 @@
                 <textarea class="form-control" ng-model="description" rows="4" style="resize: none"
                           placeholder="Short description"></textarea>
 
-                <a href="#/" class="btn btn-primary form-control" ng-click="add()" style="margin-top: 25px">Add now</a>
-
+                <button class="btn btn-primary form-control" ng-click="add()" style="margin-top: 25px">Add now</button>
 
             </div>
         </div>
