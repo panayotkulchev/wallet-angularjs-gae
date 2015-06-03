@@ -1,3 +1,27 @@
+/*#id {*/
+    /*width: 10%;*/
+/*}*/
+
+/*#date {*/
+    /*width: 15%;*/
+/*}*/
+
+/*#amount {*/
+    /*width: 20%;*/
+/*}*/
+
+/*#type {*/
+    /*width: 20%;*/
+/*}*/
+
+/*#description {*/
+    /*width: 25%;*/
+/*}*/
+
+/*#edit-dell {*/
+    /*width: 10%;*/
+/*}*/
+
 #id {
     width: 10%;
 }
@@ -19,5 +43,5 @@
 }
 
 #edit-dell {
-    width: 50px;
+    width: 10%;
 }
