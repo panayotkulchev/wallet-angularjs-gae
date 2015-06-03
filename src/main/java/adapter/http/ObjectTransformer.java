@@ -39,9 +39,9 @@ public class ObjectTransformer {
     int year = date.getYear() + 1900;
 
     if (day < 11) {
-      dateAsString = "0" + day + "-" + monthNames[monthIndex + 1] + "-" + year;
+      dateAsString = "0" + day + "-" + monthNames[monthIndex] + "-" + year;
     } else {
-      dateAsString = day + "-" + monthNames[monthIndex + 1] + "-" + year;
+      dateAsString = day + "-" + monthNames[monthIndex] + "-" + year;
     }
     return new ExpenseDto(expense.id, expense.type, expense.amount, dateAsString, expense.description);
   }
