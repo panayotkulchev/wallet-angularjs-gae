@@ -36,11 +36,6 @@ public class PersistentExpensesRepository implements ExpensesRepository {
   }
 
   @Override
-  public void edit(Expense expense) {
-
-  }
-
-  @Override
   public List<Expense> retrieveAll() {
     return Lists.newArrayList(datastore.find(Expense.class));
   }
@@ -53,9 +48,21 @@ public class PersistentExpensesRepository implements ExpensesRepository {
 
   @Override
   public void deleteAll() {
-    System.out.println("into delAll");
     datastore.deleteAll(Expense.class);
   }
+
+  @Override
+  public Expense retrieveById(Long id) {
+
+    Expense expense = datastore.load(Expense.class, id);
+
+    return expense;
+  }
+
+  @Override
+  public void update(String id, Expense expense) {
+    datastore.store(expense);
+    }
 
   private void initExpensesCounterIfDoNotExist() {
     if (datastore.load(Counter.class, "expensesCounter") == null) {

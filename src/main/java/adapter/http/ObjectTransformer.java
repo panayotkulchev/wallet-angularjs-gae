@@ -33,7 +33,6 @@ public class ObjectTransformer {
             "April", "May", "June", "July",
             "August", "September", "October",
             "November", "December"};
-
     Date date = new Date(expense.date);
     int day = date.getDate();
     int monthIndex = date.getMonth();
@@ -44,7 +43,6 @@ public class ObjectTransformer {
     } else {
       dateAsString = day + "-" + monthNames[monthIndex + 1] + "-" + year;
     }
-    System.out.println(expense.id + " " + expense.type + " " + expense.amount + " " + dateAsString + " " + expense.description);
     return new ExpenseDto(expense.id, expense.type, expense.amount, dateAsString, expense.description);
   }
 

@@ -18,6 +18,6 @@
 .ng-leave-active {
     opacity: 0;
 }
-.ng-leave-stagger {
-    transition-delay: 0.1s;
-}
+/*.ng-leave-stagger {*/
+    /*transition-delay: 0.1s;*/
+/*}*/

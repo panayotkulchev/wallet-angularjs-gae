@@ -12,7 +12,7 @@ public interface ExpensesRepository {
 
   void add(Expense expense);
 
-  void edit(Expense expense);
+  Expense retrieveById(Long id);
 
   List<Expense> retrieveAll();
 
@@ -20,4 +20,5 @@ public interface ExpensesRepository {
 
   void deleteAll ();
 
+  void update(String id, Expense expense);
 }

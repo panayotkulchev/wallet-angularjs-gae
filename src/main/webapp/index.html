@@ -25,7 +25,15 @@
     <script src="lib/javascript/javascriptFunctions.js"></script>
     <script src="wallet.js"></script>
 
+    <script>
+        $(function(){
+            var navMain = $("#bs-example-navbar-collapse-1");
 
+            navMain.on("click", "a", null, function () {
+                navMain.collapse('hide');
+            });
+        });
+    </script>
 </head>
 <body>
 <div class="container">

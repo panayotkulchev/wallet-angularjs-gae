@@ -18,14 +18,16 @@
             <div class="panel-body">
 
                 <select ng-model="selectedType"
-                        data-ng-options="type for type in expenseTypes" class="input-large form-control">
+                        data-ng-options="type for type in expenseTypes" class="input-large form-control"
+                        style="padding-left: 8px">
                     <option value="">-Select Expense type-</option>
                 </select><br/>
 
                 <input id="expenseAmount" class="form-control" type="text" ng-model="amount"
                        onkeypress='validate(event)' placeholder="Enter amount"/><br/>
 
-                <input type="text" id="expenseDate" ng-model="expenseDate" class="datepicker form-control "
+                <input type="text" id="expenseDate" ng-model="expenseDate" style="padding: 10px"
+                       class="datepicker form-control "
                        readonly/><br/>
 
                 <textarea class="form-control" ng-model="description" rows="4" style="resize: none"
@@ -74,8 +76,6 @@
         </div>
 
     </div>
-
-</div>
 
 </div>
 

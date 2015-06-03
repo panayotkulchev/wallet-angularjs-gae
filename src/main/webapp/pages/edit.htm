@@ -3,8 +3,7 @@
         transition: 0s;
     }
 </style>
-
-<div style="padding: 1px 1px"><h5>You are here: <b>/home</b></h5></div>
+<div style="padding: 1px 1px"><h5>You are here: <b>/edit</b></h5></div>
 
 <div ng-if="hasErrorMessage" class="alert alert-danger" role="alert" style="margin-bottom: 0px">{{errorMessage}}</div>
 
@@ -13,32 +12,29 @@
 
         <div class="panel panel-default">
             <div class="panel-heading">
-                <h3>Add new expenses:</h3>
+                <h3>Edit expense:</h3>
             </div>
             <div class="panel-body">
 
                 <select ng-model="selectedType"
-                        data-ng-options="type for type in expenseTypes" class="input-large form-control"
-                        style="padding-left: 8px">
+                        data-ng-options="type for type in expenseTypes" class="input-large form-control" style="padding-left: 8px">
                     <option value="">-Select Expense type-</option>
                 </select><br/>
 
-                <input id="expenseAmount" class="form-control" type="text" ng-model="amount"
+                <input id="expenseAmount" class="input-large form-control" type="text" ng-model="amount"
                        onkeypress='validate(event)' placeholder="Enter amount"/><br/>
 
-                <input type="text" id="expenseDate" ng-model="expenseDate" style="padding: 10px"
-                       class="datepicker form-control "
+                <input type="text" id="expenseDate" ng-model="expenseDate" style="padding: 10px" class="datepicker form-control input-large"
                        readonly/><br/>
 
                 <textarea class="form-control" ng-model="description" rows="4" style="resize: none"
                           placeholder="Short description"></textarea>
 
-                <button class="btn btn-primary form-control" ng-click="add()" style="margin-top: 25px">Add now</button>
+                <button class="btn btn-primary form-control" ng-click="edit()" style="margin-top: 25px">Edit now</button>
 
             </div>
         </div>
     </div>
-
     <div class="col-md-6" style="padding: 20px 10px">
 
         <div class="panel panel-default">
@@ -76,17 +72,4 @@
         </div>
 
     </div>
-
 </div>
-
-
-
-
-
-
-
-
-
-
-
-

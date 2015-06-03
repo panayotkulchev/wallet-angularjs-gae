@@ -11,6 +11,7 @@ import com.google.sitebricks.headless.Service;
 import com.google.sitebricks.http.Delete;
 import com.google.sitebricks.http.Get;
 import com.google.sitebricks.http.Post;
+import com.google.sitebricks.http.Put;
 import core.Expense;
 import core.ExpenseDto;
 import core.ExpensesRepository;
@@ -42,10 +43,24 @@ public class Services {
     List<ExpenseDto> expensesDtos = Lists.newArrayList();
     List<Expense> expenses = expensesRepository.retrieveAll();
 
-    for (Expense each:expenses){
+    for (Expense each : expenses) {
       expensesDtos.add(ObjectTransformer.transformToDto(each));
     }
     return Reply.with(expensesDtos).as(Json.class);
+  }
+
+  @At("/get/:id")
+  @Get
+  private Reply<?> getExpencesById(@Named("id") String id) {
+    try {
+      Expense expense = expensesRepository.retrieveById(Long.parseLong(id));
+      ExpenseDto expenseDto = ObjectTransformer.transformToDto(expense);
+      return Reply.with(expenseDto).as(Json.class);
+
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+    return Reply.saying().error();
   }
 
   @At("/put")
@@ -54,15 +69,30 @@ public class Services {
     try {
 
       ExpenseDto expenseDto = request.read(ExpenseDto.class).as(Json.class);
-      System.out.println(expenseDto.date);
       Expense expense = ObjectTransformer.transformFromDto(expenseDto);
-      System.out.println(expense.date);
       expensesRepository.add(expense);
 
     } catch (Exception e) {
       return Reply.saying().error();
     }
     return Reply.saying().ok();
+  }
+
+  @At("/edit/:id")
+  @Put
+  private Reply<?> editExpenceById(Request request, @Named("id") String id) {
+    try {
+
+      ExpenseDto expenseDto = request.read(ExpenseDto.class).as(Json.class);
+      Expense expense = ObjectTransformer.transformFromDto(expenseDto);
+      expensesRepository.update(id,expense);
+
+      return Reply.saying().ok();
+
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+    return Reply.saying().error();
   }
 
   @At("/del/:id")
