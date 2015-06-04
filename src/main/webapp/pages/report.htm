@@ -22,7 +22,7 @@
     </tr>
     </thead>
     <tbody>
-    <tr ng-repeat="datalist in datalists | limitTo: paginationLimit() | filter:searchText">
+    <tr ng-repeat="datalist in datalists | limitTo: paginationLimit() | filter:searchText" class="repeat-animation">
         <th id="id" scope="row">{{$index}}</th>
         <td id="date"><a href="#">{{datalist.date}}</a></td>
         <td id="type">{{ datalist.type }}</td>
