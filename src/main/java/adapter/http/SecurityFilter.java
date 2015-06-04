@@ -41,7 +41,7 @@ public class SecurityFilter implements Filter {
   }
 
   public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain) throws ServletException, IOException {
-    System.out.println("SecurityFilter");
+
     sessionRepository.cleanExpired();
 
     HttpServletResponse response = (HttpServletResponse) resp;
@@ -49,13 +49,11 @@ public class SecurityFilter implements Filter {
 
 
     if (sid == null) {
-      System.out.println("sid is null");
       response.sendError(response.SC_UNAUTHORIZED, "you are not authorized");
       return;
     }
 
     if (!sessionRepository.isExisting(sid)) {
-      System.out.println("no sid in db");
       response.sendError(response.SC_UNAUTHORIZED, "you are not authorized");
       return;
     }
