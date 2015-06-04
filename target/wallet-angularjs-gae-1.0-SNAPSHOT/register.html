@@ -22,11 +22,11 @@
             <div class="panel panel-default">
                 <div class="panel-body">
                     <div class="page-header">
-                        <p class="bg-success" style="text-align: center">${message}
                         <p class="bg-danger" style="text-align: center">${errorMessage}
-                        <h3>Login Area</h3>
+                        <p class="bg-success" style="text-align: center">${message}
+                        <h3>Register Area</h3>
                     </div>
-                    <form role="form" action="login" method="post">
+                    <form role="form" action="/register" method="post">
                         <div class="form-group">
                             <label for="exampleInputEmail1">Email or Username</label>
 
@@ -46,12 +46,12 @@
                             </div>
                         </div>
                         <hr/>
-                        <a href="/register" type="button" class="btn btn-success"><span
+                        <a href="/login" type="button" class="btn btn-success"><span
                                 class="glyphicon glyphicon-arrow-left"></span>
-                            Register
+                            Login
                         </a>
                         <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-lock"></span>
-                            Login
+                            Register
                         </button>
                         <p><br/></p>
                     </form>
@@ -65,4 +65,3 @@
 <script src="/lib/bootstrap-3.3.4/js/bootstrap.min.js"></script>
 </body>
 </html>
-
