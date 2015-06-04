@@ -42,9 +42,9 @@ myApp.controller("editController", function ($scope, $http, $routeParams,$locati
           align: 'left'
         });
         $location.path("report");
-        //resetForm(); //todo redirect to the home page
       }).error(function (result) {
         $.bootstrapGrowl("Error at edit", {type: 'danger'});
+        setForm();
       });
     }
   };

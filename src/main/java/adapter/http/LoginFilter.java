@@ -38,7 +38,7 @@ public class LoginFilter implements Filter {
     }
 
     public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain) throws ServletException, IOException {
-      System.out.println("Filter");
+      System.out.println();
         HttpServletResponse response = (HttpServletResponse) resp;
 
         String sid = sidFetcher.fetch();
@@ -55,7 +55,7 @@ public class LoginFilter implements Filter {
         }
 
         userSession.refresh();
-        response.sendRedirect("/");
+        response.sendRedirect("/wallet");
 
 
 

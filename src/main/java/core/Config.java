@@ -8,6 +8,6 @@ package core;
 
 public class Config {
 
-  public static final Long SESSION_REFRESH_RATE = 30000l;
+  public static final Long SESSION_REFRESH_RATE = 300000l;
 
 }

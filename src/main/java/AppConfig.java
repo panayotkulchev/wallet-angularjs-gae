@@ -1,13 +1,7 @@
 import adapter.db.PersistentExpensesRepository;
 import adapter.db.PersistentSessionRepository;
 import adapter.db.PersistentUserRepository;
-import adapter.http.LoginFilter;
-import adapter.http.LoginPage;
-import adapter.http.LogoutPage;
-import adapter.http.RegisterPage;
-import adapter.http.SecurityFilter;
-import adapter.http.Services;
-import adapter.http.UserSession;
+import adapter.http.*;
 import adapter.http.validator.ParamHolder;
 import adapter.http.validator.RegexValidator;
 import adapter.http.validator.RequestParamHolder;
@@ -52,8 +46,11 @@ public class AppConfig extends GuiceServletContextListener {
               @Override
               protected void configureServlets() {
 
-//                filter("/login").through(LoginFilter.class);
-//                filter("/rest/*").through(SecurityFilter.class);
+                filter("/login").through(LoginFilter.class);
+                filter("/rest/*").through(SecurityFilter.class);
+                filter("/wallet").through(MainPageSecurityFilter.class);
+//                filter("/").through(SecurityFilter.class);
+//                filter("").through(SecurityFilter.class);
               }
             },
 

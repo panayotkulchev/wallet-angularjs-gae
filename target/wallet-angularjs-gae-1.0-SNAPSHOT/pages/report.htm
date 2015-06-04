@@ -3,7 +3,8 @@
 
 <style>button {
     margin-right: 10px;
-}</style>
+}
+</style>
 
 <div class="input-group" style="margin: 10px auto">
     <span class="input-group-addon"><span class="glyphicon glyphicon-zoom-in"></span></span>
@@ -24,7 +25,8 @@
     <tbody>
     <tr ng-repeat="datalist in datalists | limitTo: paginationLimit() | filter:searchText" class="repeat-animation">
         <th id="id" scope="row">{{$index}}</th>
-        <td id="date"><a href="#">{{datalist.date}}</a></td>
+        <!--<td id="date"><a href="#">{{datalist.date}}</a></td>-->
+        <td id="date">{{datalist.date}}</td>
         <td id="type">{{ datalist.type }}</td>
         <td id="amount"><b>{{ datalist.amount }}</b> BGN</td>
         <td id="description">{{ datalist.description }}</td>

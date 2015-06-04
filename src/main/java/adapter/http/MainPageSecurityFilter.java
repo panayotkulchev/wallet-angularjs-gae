@@ -15,22 +15,22 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
- * Created on 15-5-5.
+ * Created on 15-6-4.
  *
  * @author Panayot Kulchev <panayotkulchev@gmail.com>
  */
 
 @Singleton
-public class SecurityFilter implements Filter {
+public class MainPageSecurityFilter implements Filter {
 
   private final SessionRepository sessionRepository;
   private final SidFetcher sidFetcher;
   private final UserSession userSession;
 
   @Inject
-  public SecurityFilter(SessionRepository sessionRepository,
-                        SidFetcher sidFetcher,
-                        UserSession userSession) {
+  public MainPageSecurityFilter(SessionRepository sessionRepository,
+                                SidFetcher sidFetcher,
+                                UserSession userSession) {
 
     this.sessionRepository = sessionRepository;
     this.sidFetcher = sidFetcher;
@@ -49,14 +49,12 @@ public class SecurityFilter implements Filter {
 
 
     if (sid == null) {
-      System.out.println("sid is null");
-      response.sendError(response.SC_UNAUTHORIZED, "you are not authorized");
+      response.sendRedirect("/login");
       return;
     }
 
     if (!sessionRepository.isExisting(sid)) {
-      System.out.println("no sid in db");
-      response.sendError(response.SC_UNAUTHORIZED, "you are not authorized");
+      response.sendRedirect("/login");
       return;
     }
 

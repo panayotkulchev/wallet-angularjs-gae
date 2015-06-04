@@ -57,7 +57,7 @@ public class LoginPage {
 
     userSession.create(email);
 
-    return "/#/";
+    return "/wallet";
 
   }
 }
