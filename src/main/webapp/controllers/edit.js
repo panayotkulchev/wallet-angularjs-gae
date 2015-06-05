@@ -16,6 +16,7 @@ myApp.controller("editController", function ($scope, $http, $routeParams,$locati
   setUpDatePicker();
   monitorAmountForEnteringProperValues();
 
+  // FIX THIS SH...
   function setForm() {
     $scope.id=$scope.expense.id;
     $scope.amount = $scope.expense.amount;
@@ -30,13 +31,13 @@ myApp.controller("editController", function ($scope, $http, $routeParams,$locati
   $scope.edit = function () {
     if (chosenTypeIsValid() && amountIsValid()) {
       $http.put('rest/edit/'+$scope.id, {
-        'type': $scope.selectedType,
+        'type': $scope.selectedType,    // PUT IT IN J-OBJ WHEN TH IS TIME
         'amount': $scope.amount,
         'date': $scope.expenseDate,
         'description': $scope.description,
         'id': $scope.id
       }).success(function (result) {
-        $.bootstrapGrowl("Successful editing" , {
+        $.bootstrapGrowl("Successful edit of expense" , {
           type: 'success',
           width: 'auto',
           align: 'left'
@@ -49,7 +50,7 @@ myApp.controller("editController", function ($scope, $http, $routeParams,$locati
     }
   };
 
-  //INIT TYPES
+  //INIT TYPES  -  SHOULD BE LOADED FROM DB
   $scope.expenseTypes = ["Books", "Bills", "Car", "Computer", "Food", "Fuel"];
   //END INIT TYPES
 
@@ -79,6 +80,7 @@ myApp.controller("editController", function ($scope, $http, $routeParams,$locati
     return true;
   }
 
+  //FORMAT THE AMOUNT
   function amountIsValid() {
     if ($scope.amount == '' || $scope.amount.slice(-1) == '.' || $scope.amount == 0) {
       $scope.errorMessage = "Please enter proper amount!";
@@ -93,7 +95,7 @@ myApp.controller("editController", function ($scope, $http, $routeParams,$locati
     }
     return true;
   }
-
+  //END FORMAT THE AMOUNT
   //MONITOR THE AMOUNT INPUT
   function monitorAmountForEnteringProperValues() {
     $scope.$watch('amount', function () {

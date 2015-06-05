@@ -41,6 +41,7 @@ public class SecurityFilter implements Filter {
   }
 
   public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain) throws ServletException, IOException {
+    System.out.println("RestSecurityFilter");
 
     sessionRepository.cleanExpired();
 

@@ -71,10 +71,11 @@ public class UserSession implements Session {
   public void delete() {
 
     String sid = sidFetcher.fetch();
-    HttpServletResponse response = responseProvider.get();
-    HttpServletRequest request = requestProvider.get();
 
     if (sid != null) {
+
+      HttpServletResponse response = responseProvider.get();
+      HttpServletRequest request = requestProvider.get();
 
       sessionRepository.delete(sid);
 

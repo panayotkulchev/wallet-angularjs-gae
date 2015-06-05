@@ -4,12 +4,21 @@
  * @author Panayot Kulchev <panayotkulchev@gmail.com>
  */
 
-myApp.controller('reportController', function ($scope, $http) {
+myApp.controller('reportController', function ($scope, $http,$q,$timeout) {
   console.log('reportcontroller');
 
+  // MAY NEED IT LATER
+  var defer = $q.defer();
+  defer.promise.then(function (d) {
+
+  });
+
+  $scope.showLoadingBar = true;
+  $('#my-modal').modal('show');
   //GET ALL EXPENSES
   $http.get('rest/get').success(function (result) {
     $scope.datalists = result;
+    $('#my-modal').modal('hide'); // MOVE TO INTERCEPTOR
   });
   //END GET ALL EXPENSES
   // DELETE EXPENSE

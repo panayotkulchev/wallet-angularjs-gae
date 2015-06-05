@@ -11,6 +11,17 @@
     <input class="form-control" type="text" ng-model="searchText" placeholder="Search for expenses"/>
 </div>
 
+
+<div id="my-modal" class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog"
+     aria-labelledby="mySmallModalLabel" aria-hidden="true" style="height: 100px">
+    <div class="modal-dialog modal-sm" style="height: 100px; margin-top: 300px">
+        <div class="modal-content" style="height: 100px">
+            Hello
+        </div>
+    </div>
+</div>
+
+
 <table class="table table-bordered table-condensed">
     <thead>
     <tr>
@@ -33,7 +44,7 @@
         <td id="edit-del">
             <div class="row" align="center" style="width: 100px;">
                 <a href="#/edit/{{datalist.id}}" class="btn btn-info btn-xs"
-                        style="margin: 1px 1px"><span
+                   style="margin: 1px 1px"><span
                         class="glyphicon glyphicon-pencil"></span></a>
                 <button type="button" class="btn btn-danger btn-xs" ng-click="deleteExpense(datalist.id)"
                         style="margin: 1px 1px"><span
@@ -51,4 +62,3 @@
         <button class="btn btn-danger" ng-click="deleteAllExpenses()">Delete all</button>
     </div>
 </div>
-

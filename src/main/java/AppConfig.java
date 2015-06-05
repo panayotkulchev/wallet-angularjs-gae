@@ -46,11 +46,10 @@ public class AppConfig extends GuiceServletContextListener {
               @Override
               protected void configureServlets() {
 
-                filter("/login").through(LoginFilter.class);
-                filter("/rest/*").through(SecurityFilter.class);
                 filter("/wallet").through(MainPageSecurityFilter.class);
-//                filter("/").through(SecurityFilter.class);
-//                filter("").through(SecurityFilter.class);
+                filter("/rest/*").through(SecurityFilter.class);
+                filter("/login").through(LoginFilter.class);
+
               }
             },
 
@@ -58,11 +57,11 @@ public class AppConfig extends GuiceServletContextListener {
               @Override
               protected void configureSitebricks() {
 
-                at("/rest").serve(Services.class);
-                at("/logout").serve(LogoutPage.class);
-
-                at("/register").show(RegisterPage.class);
                 at("/login").show(LoginPage.class);
+                at("/logout").serve(LogoutPage.class);
+                at("/register").show(RegisterPage.class);
+                at("/rest").serve(Services.class);
+                at("/wallet").show(Wallet.class);
               }
             },
 
@@ -78,6 +77,10 @@ public class AppConfig extends GuiceServletContextListener {
                 bind(ParamHolder.class).to(RequestParamHolder.class);
                 bind(Session.class).to(UserSession.class);
                 bind(Validator.class).to(RegexValidator.class);
+
+                bind(MainPageSecurityFilter.class).in(Singleton.class);
+                bind(LoginFilter.class).in(Singleton.class);
+                bind(SecurityFilter.class).in(Singleton.class);
               }
 
               @Provides

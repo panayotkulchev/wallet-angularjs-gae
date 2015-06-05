@@ -46,6 +46,11 @@ public class Services {
     for (Expense each : expenses) {
       expensesDtos.add(ObjectTransformer.transformToDto(each));
     }
+    try { //TODO ONLY FOR DEMO REMOVE LTR
+      Thread.sleep(2000);
+    } catch (InterruptedException e) {
+      e.printStackTrace();
+    }
     return Reply.with(expensesDtos).as(Json.class);
   }
 

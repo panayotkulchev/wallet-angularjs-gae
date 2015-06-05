@@ -1,4 +1,4 @@
-var myApp = angular.module('walletApp', ['ngRoute', 'ngAnimate']);
+var myApp = angular.module('walletApp', ['ngRoute','angular-loading-bar', 'ngAnimate']);
 
 //ROUTES
 myApp.config(function ($routeProvider) {
@@ -9,7 +9,7 @@ myApp.config(function ($routeProvider) {
           })
           .when('/report', {
             templateUrl: 'pages/report.htm',
-            controller: 'reportController'
+            controller: 'reportController',
           })
           .when('/edit/:expenseId', {
             templateUrl: 'pages/edit.htm',
@@ -17,14 +17,12 @@ myApp.config(function ($routeProvider) {
           })
           .otherwise({
             redirectTo: '/'
-            //redirect : function(){
-            //  $window.location.href = '/login';
-            //}
           })
   ;
 
 });
 
+// SECURITY FILTER
 myApp.config(function ($httpProvider) {
   $httpProvider.interceptors.push(function ($q,$location,$window) {
     return {

@@ -23,25 +23,26 @@ import java.io.IOException;
 @Singleton
 public class LoginFilter implements Filter {
 
-    private final SessionRepository sessionRepository;
-    private final SidFetcher sidFetcher;
-    private final UserSession userSession;
+  private final SessionRepository sessionRepository;
+  private final SidFetcher sidFetcher;
+  private final UserSession userSession;
 
-    @Inject
-    public LoginFilter(SessionRepository sessionRepository, SidFetcher sidFetcher, UserSession userSession) {
-        this.sessionRepository = sessionRepository;
-        this.sidFetcher = sidFetcher;
-        this.userSession = userSession;
-    }
+  @Inject
+  public LoginFilter(SessionRepository sessionRepository, SidFetcher sidFetcher, UserSession userSession) {
+    this.sessionRepository = sessionRepository;
+    this.sidFetcher = sidFetcher;
+    this.userSession = userSession;
+  }
 
-    public void init(FilterConfig config) throws ServletException {
-    }
+  public void init(FilterConfig config) throws ServletException {
+  }
 
-    public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain) throws ServletException, IOException {
-      System.out.println();
-        HttpServletResponse response = (HttpServletResponse) resp;
+  public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain) throws ServletException, IOException {
+    System.out.println("LoginFilter");
 
-        String sid = sidFetcher.fetch();
+    HttpServletResponse response = (HttpServletResponse) resp;
+
+    String sid = sidFetcher.fetch();
 
 
         if (sid==null){
@@ -58,18 +59,23 @@ public class LoginFilter implements Filter {
         response.sendRedirect("/wallet");
 
 
-
-//        if (sid == null || !sessionRepository.isExisting(sid)) {
-//            chain.doFilter(req, resp);
+//    if (sid == null) {
+//      chain.doFilter(req, resp);
+//      return;
 //
-//        } else {
+//    } else {
+//      if (!sessionRepository.isExisting(sid)) {
+//        chain.doFilter(req, resp);
+//        return;
+//      }
+//    }
 //
-//            userSession.refresh();
-//            response.sendRedirect("/welcome");
-//        }
-    }
+//    userSession.refresh();
+//    response.sendRedirect("/wallet");
 
-    public void destroy() {
-    }
+  }
+
+  public void destroy() {
+  }
 
 }
