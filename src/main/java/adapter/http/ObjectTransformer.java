@@ -27,7 +27,7 @@ public class ObjectTransformer {
   }
 
   public static ExpenseDto transformToDto(Expense expense) {
-
+    // todo change depricated things
     String dateAsString = "";
     String monthNames[] = {"January", "February", "March",
             "April", "May", "June", "July",

@@ -2,6 +2,7 @@ package adapter.http;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
+import core.Config;
 import core.SessionRepository;
 import core.SidFetcher;
 
@@ -41,8 +42,7 @@ public class SecurityFilter implements Filter {
   }
 
   public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain) throws ServletException, IOException {
-    System.out.println("RestSecurityFilter");
-
+    //todo session clean should not be here
     sessionRepository.cleanExpired();
 
     HttpServletResponse response = (HttpServletResponse) resp;
@@ -59,6 +59,7 @@ public class SecurityFilter implements Filter {
       return;
     }
 
+    userSession.refresh();
     chain.doFilter(req, resp);
   }
 

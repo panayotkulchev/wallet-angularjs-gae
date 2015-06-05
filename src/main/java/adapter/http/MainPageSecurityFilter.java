@@ -41,9 +41,8 @@ public class MainPageSecurityFilter implements Filter {
   }
 
   public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain) throws ServletException, IOException {
-    sessionRepository.cleanExpired();
 
-    System.out.println("MainPageSecurityFilter");
+    sessionRepository.cleanExpired();
 
     HttpServletResponse response = (HttpServletResponse) resp;
     String sid = sidFetcher.fetch();

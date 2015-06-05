@@ -28,13 +28,14 @@ public class PersistentSessionRepository implements SessionRepository {
   @Override
   public void refresh(String sid, Long expirationTime) {
 
+    Session session = datastore.load(Session.class,sid);
+    session.expirationTime=expirationTime;
+    datastore.update(session);
   }
 
   @Override
   public boolean isExisting(String sid) {
-//    if (sid!=null){
-//      System.out.println("cookieSid is not null so will print session from DB"+datastore.load(Session.class,sid));
-//    }
+
     return (datastore.load(Session.class, sid) != null);
   }
 

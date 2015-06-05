@@ -38,40 +38,23 @@ public class LoginFilter implements Filter {
   }
 
   public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain) throws ServletException, IOException {
-    System.out.println("LoginFilter");
 
     HttpServletResponse response = (HttpServletResponse) resp;
 
     String sid = sidFetcher.fetch();
 
+    if (sid == null) {
+      chain.doFilter(req, resp);
+      return;
+    }
 
-        if (sid==null){
-            chain.doFilter(req, resp);
-            return;
-        }
+    if (!sessionRepository.isExisting(sid)) {
+      chain.doFilter(req, resp);
+      return;
+    }
 
-        if (!sessionRepository.isExisting(sid)){
-            chain.doFilter(req, resp);
-            return;
-        }
-
-        userSession.refresh();
-        response.sendRedirect("/wallet");
-
-
-//    if (sid == null) {
-//      chain.doFilter(req, resp);
-//      return;
-//
-//    } else {
-//      if (!sessionRepository.isExisting(sid)) {
-//        chain.doFilter(req, resp);
-//        return;
-//      }
-//    }
-//
-//    userSession.refresh();
-//    response.sendRedirect("/wallet");
+    userSession.refresh();
+    response.sendRedirect("/wallet");
 
   }
 
