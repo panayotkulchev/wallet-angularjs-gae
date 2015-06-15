@@ -9,7 +9,7 @@ myApp.config(function ($routeProvider) {
           })
           .when('/report', {
             templateUrl: 'pages/report.htm',
-            controller: 'reportController',
+            controller: 'reportController'
           })
           .when('/edit/:expenseId', {
             templateUrl: 'pages/edit.htm',

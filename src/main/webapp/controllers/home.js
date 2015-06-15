@@ -28,7 +28,7 @@ myApp.controller('homeController', function ($scope, $http) {
         });
         resetForm();
       }).error(function (result) {
-        $.bootstrapGrowl("Error adding of expense of " + $scope.amount + ' BGN', {type: 'danger'});
+        $.bootstrapGrowl("Error adding of expense of " + $scope.amount + ' BGN' , {type: 'danger'});
         resetForm();
       });
     }
