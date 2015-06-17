@@ -62,6 +62,7 @@ public class AppConfig extends GuiceServletContextListener {
                 at("/register").show(RegisterPage.class);
                 at("/rest").serve(Services.class);
                 at("/wallet").show(Wallet.class);
+                at("/oauth-callback").show(OAuthCallback.class);
               }
             },
 

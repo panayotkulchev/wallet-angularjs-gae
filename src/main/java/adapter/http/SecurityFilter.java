@@ -43,11 +43,12 @@ public class SecurityFilter implements Filter {
 
   public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain) throws ServletException, IOException {
     //todo session clean should not be here
+//    System.out.println("--- SecurityFilter ---");
     sessionRepository.cleanExpired();
 
     HttpServletResponse response = (HttpServletResponse) resp;
     String sid = sidFetcher.fetch();
-
+//    System.out.println(" --- SecurityFilter --- SID IS:" +sid);
 
     if (sid == null) {
       response.sendError(response.SC_UNAUTHORIZED, "you are not authorized");
@@ -58,7 +59,7 @@ public class SecurityFilter implements Filter {
       response.sendError(response.SC_UNAUTHORIZED, "you are not authorized");
       return;
     }
-
+//    System.out.println("--- SecurityFilter --- ALL IS OK");
     userSession.refresh();
     chain.doFilter(req, resp);
   }

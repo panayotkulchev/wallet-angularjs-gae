@@ -8,8 +8,6 @@ package core;
 
 public interface Session {
 
-//  public void create(Integer userId);
-
   public void create(String userId);
 
   public void refresh();
