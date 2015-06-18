@@ -44,23 +44,23 @@ public class OAuthCallback {
 
     HttpServletRequest request = requestProvider.get();
 
-    String incomingState = request.getParameter("state");
-    String expectedState = (String) request.getSession().getAttribute("oauth2-state");
-
-    if (!StringUtils.equals(incomingState, expectedState)) {
-//      response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid state");
-      return "/login?errorMessage=BAD_REQUEST Invalid state!";
-    } //todo security tbd
+//    String incomingState = request.getParameter("state");
+//    String expectedState = (String) request.getSession().getAttribute("oauth2-state");
+//
+//    if (!StringUtils.equals(incomingState, expectedState)) {
+////      response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid state");
+//      return "/login?errorMessage=BAD_REQUEST Invalid state!";
+//    } //todo security tbd
 
 
     List<NameValuePair> parameters = new ArrayList<NameValuePair>();
     parameters.add(new BasicNameValuePair("grant_type", "authorization_code"));
-//    parameters.add(new BasicNameValuePair("client_id", "975229642235-slatste5to3kb3f0gv100qm27ril6jfs.apps.googleusercontent.com"));
-    parameters.add(new BasicNameValuePair("client_id", "334412481728-odc16ekeohanqdqjiqng1b9finubf8gn.apps.googleusercontent.com"));
+//    parameters.add(new BasicNameValuePair("client_id", "975229642235-slatste5to3kb3f0gv100qm27ril6jfs.apps.googleusercontent.com")); //demo
+    parameters.add(new BasicNameValuePair("client_id", "334412481728-odc16ekeohanqdqjiqng1b9finubf8gn.apps.googleusercontent.com")); //wallet
 //    parameters.add(new BasicNameValuePair("client_secret", "o8RD7MMbADzTISr5eAl-HI99"));
     parameters.add(new BasicNameValuePair("client_secret", "D1ynyDCNClbuPxUZYZ1CGth7"));
-//    parameters.add(new BasicNameValuePair("redirect_uri", request.getRequestURL().toString())); //add this
-    parameters.add(new BasicNameValuePair("redirect_uri", "http://wallet-angularjs-gae.appspot.com/oauth-callback"));
+    parameters.add(new BasicNameValuePair("redirect_uri", request.getRequestURL().toString())); //add this
+//    parameters.add(new BasicNameValuePair("redirect_uri", "http://wallet-angularjs-gae.appspot.com/oauth-callback"));
     parameters.add(new BasicNameValuePair("code", request.getParameter("code")));
 
     String output = Util.sendHttpPost("https://accounts.google.com/o/oauth2/token", parameters);

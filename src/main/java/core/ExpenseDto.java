@@ -10,7 +10,6 @@ import com.vercer.engine.persist.annotation.Key;
 
 public class ExpenseDto {
 
-  @Key
   public Long id;
   public String type;
   public String amount;

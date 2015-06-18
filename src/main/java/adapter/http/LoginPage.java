@@ -77,23 +77,26 @@ public class LoginPage {
   @Get
   public void createAuthentificationLink() throws URISyntaxException, MalformedURLException {
 
-      HttpServletRequest request = requestProvider.get();
-      String state = RandomStringUtils.random(32, true, true);
-      request.getSession().setAttribute("oauth2-state", state);
+    HttpServletRequest request = requestProvider.get();
+    String state = RandomStringUtils.random(32, true, true);
+    request.getSession().setAttribute("oauth2-state", state);
 
-      URIBuilder builder = new URIBuilder("https://accounts.google.com/o/oauth2/auth");
-      builder.addParameter("state", state);
+    URIBuilder builder = new URIBuilder("https://accounts.google.com/o/oauth2/auth");
+
+    builder.addParameter("state", state);
 
 //      URL redirectUrl = Util.getAbsoluteUrl(request, "server-side-webapp-flow-callback.jsp"); // origin works
-      URL redirectUrl = Util.getAbsoluteUrl(request, "oauth-callback");
+    URL redirectUrl = Util.getAbsoluteUrl(request, "oauth-callback");
 
-      builder.addParameter("redirect_uri", "http://wallet-angularjs-gae.appspot.com/oauth-callback");
+//      builder.addParameter("redirect_uri", "http://wallet-angularjs-gae.appspot.com/oauth-callback");
+    builder.addParameter("redirect_uri", redirectUrl.toString());
+    System.out.println(redirectUrl.toString());
 //      builder.addParameter("client_id", "975229642235-slatste5to3kb3f0gv100qm27ril6jfs.apps.googleusercontent.com");
-      builder.addParameter("client_id", "334412481728-odc16ekeohanqdqjiqng1b9finubf8gn.apps.googleusercontent.com");
-      builder.addParameter("response_type", "code");
-      builder.addParameter("scope", "profile email");
-      builder.addParameter("approval_prompt", "force");
+    builder.addParameter("client_id", "334412481728-odc16ekeohanqdqjiqng1b9finubf8gn.apps.googleusercontent.com");
+    builder.addParameter("response_type", "code");
+    builder.addParameter("scope", "profile email");
+    builder.addParameter("approval_prompt", "force");
 
-      oauthURL = builder.toString();
-      }
+    oauthURL = builder.toString();
+  }
 }
