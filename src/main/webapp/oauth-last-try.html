@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="google-signin-client_id"
+          content="13906570739-83jakgvmakqfuhhp5kevnd4jpmkqfaft.apps.googleusercontent.com">
+    <title></title>
+    <link href="lib/bootstrap-3.3.4/css/bootstrap.min.css" rel="stylesheet">
+    <!--<script src="https://apis.google.com/js/platform.js" async defer></script>-->
+    <!--<script src="https://plus.google.com/js/client:plusone.js"></script>-->
+
+    <!-- BEGIN Pre-requisites -->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js">
+    </script>
+    <script src="https://apis.google.com/js/client:platform.js?onload=start" async defer>
+    </script>
+    <script>
+        function start() {
+            gapi.load('auth2', function() {
+                auth2 = gapi.auth2.init({
+                    client_id: '13906570739-83jakgvmakqfuhhp5kevnd4jpmkqfaft.apps.googleusercontent.com',
+                    // Scopes to request in addition to 'profile' and 'email'
+                    //scope: 'additional_scope'
+                });
+            });
+        }
+    </script>
+    <!-- END Pre-requisites -->
+
+</head>
+<body>
+<button id="signinButton">Sign in with Google</button>
+<script>
+    $('#signinButton').click(function() {
+        // signInCallback defined in step 6.
+        auth2.grantOfflineAccess({'redirect_uri': 'postmessage'}).then(signInCallback);
+    });
+</script>
+<div id="result"></div>
+<!-- Last part of BODY element in file index.html -->
+<script>
+    function signInCallback(authResult) {
+        if (authResult['code']) {
+
+            // Hide the sign-in button now that the user is authorized, for example:
+            $('#signinButton').attr('style', 'display: none');
+
+            // Send the code to the server
+            $.ajax({
+                type: 'POST',
+                url: 'http://example.com/storeauthcode',
+                contentType: 'application/octet-stream; charset=utf-8',
+                success: function(result) {
+                    // Handle or verify the server response.
+                },
+                processData: false,
+                data: authResult['code']
+            });
+        } else {
+            // There was an error.
+        }
+    }
+</script>
+<!--<button id="signin-button" class="btn btn-primary">Some content</button>-->
+<!--<script>-->
+    <!--/**-->
+     <!--* The Sign-In client object.-->
+     <!--*/-->
+    <!--var auth2;-->
+
+    <!--/**-->
+     <!--* Initializes the Sign-In client.-->
+     <!--*/-->
+    <!--var initClient = function() {-->
+        <!--gapi.load('auth2', function(){-->
+            <!--/**-->
+             <!--* Retrieve the singleton for the GoogleAuth library and set up the-->
+             <!--* client.-->
+             <!--*/-->
+            <!--auth2 = gapi.auth2.init({-->
+                <!--client_id: '13906570739-83jakgvmakqfuhhp5kevnd4jpmkqfaft.apps.googleusercontent.com'-->
+            <!--});-->
+
+            <!--// Attach the click handler to the sign-in button-->
+            <!--auth2.attachClickHandler('signin-button', {}, onSuccess, onFailure);-->
+        <!--});-->
+    <!--};-->
+
+    <!--/**-->
+     <!--* Handle successful sign-ins.-->
+     <!--*/-->
+    <!--var onSuccess = function(user) {-->
+        <!--console.log('Signed in as ' + user.getBasicProfile().getName());-->
+        <!--console.log('Signed in as ' + user.getBasicProfile().isSignedIn());-->
+
+    <!--};-->
+
+    <!--/**-->
+     <!--* Handle sign-in failures.-->
+     <!--*/-->
+    <!--var onFailure = function(error) {-->
+        <!--console.log(error);-->
+    <!--};-->
+
+    <!--initClient();-->
+<!--</script>-->
+
+<!--<div class="g-signin2" data-onsuccess="onSignIn"></div>-->
+
+<!--<script>function onSignIn(googleUser) {-->
+    <!--var profile = googleUser.getBasicProfile();-->
+    <!--console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.-->
+    <!--console.log('Name: ' + profile.getName());-->
+    <!--console.log('Image URL: ' + profile.getImageUrl());-->
+    <!--console.log('Email: ' + profile.getEmail());-->
+    <!--console.log('Email1111' + googleUser.isSignedIn() );-->
+<!--}</script>-->
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<script src="/lib/bootstrap-3.3.4/js/bootstrap.min.js"></script>
+
+</body>
+</html>

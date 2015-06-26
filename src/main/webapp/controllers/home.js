@@ -10,7 +10,6 @@ myApp.controller('homeController', function ($scope, $http) {
   setUpDatePicker();
   monitorAmountForEnteringProperValues();
 
-
   // EXTRACT FORM DATA AND SEND IT TO THE SERVER TO BE SAVED
   $scope.add = function () {
     if (chosenTypeIsValid() && amountIsValid()) {

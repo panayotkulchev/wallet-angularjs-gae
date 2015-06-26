@@ -1,5 +1,7 @@
 package adapter.http;
 
+import com.google.api.client.http.javanet.NetHttpTransport;
+import com.google.api.client.json.jackson2.JacksonFactory;
 import com.google.common.collect.Lists;
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
@@ -15,7 +17,11 @@ import com.google.sitebricks.http.Put;
 import core.Expense;
 import core.ExpenseDto;
 import core.ExpensesRepository;
+import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
+import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken.Payload;
+import com.google.api.client.googleapis.auth.oauth2.GoogleIdTokenVerifier;
 
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -82,6 +88,33 @@ public class Services {
     }
     return Reply.saying().ok();
   }
+
+//  @At("/put/:token")
+//  @Post
+//  private Reply<?> verifyToken(Request request,@Named("token") String token) {
+
+//    GoogleIdTokenVerifier verifier = new GoogleIdTokenVerifier.Builder(new NetHttpTransport(), JacksonFactory.getDefaultInstance()/*transport, jsonFactory*/)
+//            .setAudience(Arrays.asList(CLIENT_ID))
+//            .build();
+//
+//// (Receive idTokenString by HTTPS POST)
+//
+//    GoogleIdToken idToken = verifier.verify(idTokenString);
+//    if (idToken != null) {
+//      Payload payload = idToken.getPayload();
+//      if (payload.getHostedDomain().equals(APPS_DOMAIN_NAME)
+//              // If multiple clients access the backend server:
+//              && Arrays.asList(ANDROID_CLIENT_ID, IOS_CLIENT_ID).contains(payload.getAuthorizedParty())) {
+//        System.out.println("User ID: " + payload.getSubject());
+//      } else {
+//        System.out.println("Invalid ID token.");
+//      }
+//    } else {
+//      System.out.println("Invalid ID token.");
+//    }
+
+//    return Reply.saying().ok();
+//  }
 
   @At("/edit/:id")
   @Put
